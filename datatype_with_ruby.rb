@@ -11,7 +11,7 @@ puts is_received.class
 #numbers
 first_var = 123
 second_var = -123
-third_var = 123.45
+third_var = 123.4567
 
 puts first_var, second_var, third_var
 puts first_var.class, second_var.class, third_var.class

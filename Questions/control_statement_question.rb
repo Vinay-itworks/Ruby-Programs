@@ -37,8 +37,12 @@ end
 puts "Sum of all the digits" + sum.to_s
 
 # 4.Factorial of number
-
-
+num = gets.chomp.to_i
+factorial = 1
+for i in 1..num
+  factorial = factorial * i
+end
+puts "Factorial of #{num} is #{factorial}."
 
 # 5. Fibonacci series
 range = gets.chomp.to_i
@@ -68,13 +72,22 @@ end
 
 # 7.find greater number between 3
 # a vs c
-a, b, c = 45, 40, 60
+
+print "Enter value for first number: "
+a = gets.chomp.to_i
+print "Enter value for second number: "
+b = gets.chomp.to_i
+print "Enter value for third number: "
+c = gets.chomp.to_i
+
 if a < b
   if b < c
     puts "#{c} is greater than #{a}, #{b}"
   else
     puts "#{b} is greater than #{a}, #{c}"
   end
+elsif a < c  
+  puts "#{c} is greater than #{a}, #{b}"
 else
   puts "#{a} is greater than #{b}, #{c}"
 end
@@ -116,11 +129,7 @@ if number < 0
   is_prime = false
 end
 
-if is_prime
-  puts "#{number} is a prime number"
-else
-  puts "#{number} is not a prime number"
-end
+is_prime ? puts "#{number} is a prime number" : puts "#{number} is not a prime number"
 
 
 # 10. Grade of student between range.
@@ -153,7 +162,7 @@ begin
 
   puts "Total marks: #{total_marks}"
   avg = total_marks/subjects.length
-  puts "Average marks: #{avg}%"
+  puts "Average marks: #{avg}"
   case avg
   when 1..35
     puts "Failed"
