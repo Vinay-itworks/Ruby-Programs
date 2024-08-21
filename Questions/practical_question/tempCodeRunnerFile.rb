@@ -1,0 +1,1 @@
+puts "======================\nWelcome to My Shop\n======================\nToday's Details\n-----------------"
