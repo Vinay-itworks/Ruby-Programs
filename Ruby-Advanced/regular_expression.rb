@@ -12,7 +12,7 @@ end
 line1 = "Dogs also like meat Cats are smarter than dogs";
 line2 = "";
 
-if ( line1 =~ /(.*)Cats/ )
+if ( line1 =~ /Cats/ )
    puts "Line1 contains Cats"
 end
 
