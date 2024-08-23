@@ -70,8 +70,8 @@ until switch == "quit" || switch == "q"
   obj.check_dimensions(L, dimensions)
 
   print "Do you want to continue Y/n : "
-  input = gets.chomp
-  unless input == "Yes" || input == "Y" || input == "y"
+  input = gets.chomp.downcase
+  unless input == "yes" || input == "Y" || input == "y"
     switch = "quit"
   end
 end
