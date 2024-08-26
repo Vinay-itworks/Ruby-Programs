@@ -56,13 +56,7 @@ class Shop
       num = file.readlines.length
       file.seek(0)
       (num-2).times{file.readline}
-      file.write(",
-    [
-      \"#{date}\",
-      #{amount}
-    ]
-  ]
-}")
+      file.write(",\n    [\n      \"#{date}\",\n      #{amount}\n    ]\n  ]\n}")
     # puts file.read
     puts "Run"
     end
