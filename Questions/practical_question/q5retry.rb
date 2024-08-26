@@ -33,15 +33,41 @@ class Shop
   def get_db
     file = open(DB).read
     data = JSON.parse(file)
-    return data
+    data
   end
 
-  def update_db(data)
+  def update_db(date, amount)
     puts "Called"
-    File.open(DB, 'w') do |file|
-      file.write(JSON.pretty_generate(data))
+    # File.open(DB, 'w') do |file|
+    #   file.write(JSON.pretty_generate(data)) #to work
+    # end
+
+    # File.open("/home/dell/Downloads/Codes/Ruby-Programs/Questions/practical_question/database.json", 'a+') do |file|
+    #   lines = file.readlines
+    #   puts lines.join
+    #   new_line = ",[
+    #   '2002-08-26',
+    #   467
+    # ]"
+    #   lines.insert(-3,new_line)
+    #   puts lines.join
+    # end
+    File.open("/home/dell/Downloads/Codes/Ruby-Programs/Questions/practical_question/database.json", 'r+') do |file|
+      num = file.readlines.length
+      file.seek(0)
+      (num-2).times{file.readline}
+      file.write(",
+    [
+      \"#{date}\",
+      #{amount}
+    ]
+  ]
+}")
+    # puts file.read
+    puts "Run"
     end
-    return "Successful"
+
+    "Successful"
   end
 
   def create_order
@@ -54,9 +80,9 @@ class Shop
       create_order
     end
     amount = input[1].to_i
-    data = get_db
-    data["record"] << [date, amount]
-    update_db(data)
+    # data = get_db
+    # data["record"] << [date, amount]
+    update_db(date, amount)
   end
 
   def get_day_details
@@ -70,12 +96,14 @@ class Shop
     end
     result = []
     data = get_db
-    data["record"].each_with_index { |value, i| #.select
-      if value[0] == date.to_s
-        result << value[1]
-      end
-    }
-    return result
+    result = data["record"].select { |value| #.select
+       value[0] == date.to_s
+      }
+    if result == []
+      "No data for #{date}"
+    else
+      result
+    end
   end
 
   def get_month_details
@@ -91,18 +119,22 @@ class Shop
     result = []
     data = get_db
     for i in 0..data["record"].length-1
-      if Date.parse(data["record"][i][0]).mon.to_i == date #strftime
+      if Date.parse(data["record"][i][0]).mon.to_i == date #strftime (data["record"][i][0]).shiftime(%m).to_i
         # puts "Matched"
         result << [data["record"][i][0], data["record"][i][1]]
         # puts result.inspect
       end
     end
-    return result
+    if result == []
+      "No data for #{date} month"
+    else
+      result
+    end
   end
 
   def total_order
     data = get_db
-    return data["record"].length
+    data["record"].length
   end
 
   def total_amount
@@ -111,35 +143,32 @@ class Shop
     for i in 0..data["record"].length-1
       result += data["record"][i][1]
     end
-    return result
+    result
+  end
+
+  def get_list_list_amounts
+    result = []
+    data = get_db
+    for i in 1..data["record"].length-1
+      result << data["record"][i][1]
+    end
+    result
   end
 
   def min_order
-    data = get_db
-    result = data["record"][0][1]
-    for i in 1..data["record"].length-1
-      if result > data["record"][i][1]
-        result = data["record"][i][1]
-      end
-    end
-    return result
+    result = get_list_list_amounts
+    result.min
   end
 
   def max_order
-    data = get_db
-    result = data["record"][0][1]
-    for i in 1..data["record"].length-1
-      if result < data["record"][i][1]
-        result = data["record"][i][1]
-      end
-    end
-    return result
+    result = get_list_list_amounts
+    result.max
   end
 
   def avg_order
     total = total_amount
     num = total_order
-    return total/num
+    total/num
   end
 
 end
@@ -150,17 +179,16 @@ end
 # puts Shop.get_db
 
 obj = Shop.new
-
+puts obj.get_db
 
 puts "======================\nWelcome to My Shop\n======================\nToday's Details\n-----------------"
-puts "Total Order : #{obj.total_order}"
+puts "Total Orders : #{obj.total_order}"
 puts "Total Amount: #{obj.total_amount}"
 puts "Minimum Order: #{obj.min_order}"
 puts "Maximum Order: #{obj.max_order}"
 puts "Average Order: #{obj.avg_order}"
 puts "======================"
-switch = ""
-until switch == "quit" || switch == "q"
+loop do
   puts "1 Create New Order \n2 Print Day Details\n3 Print Month Details\nHow may I help you?(1, 2, 3 or quit)"
   input = gets.chomp
   num = input.to_i
@@ -171,7 +199,7 @@ until switch == "quit" || switch == "q"
   elsif num == 3
     puts obj.get_month_details
   elsif input == "quit" || input == "q"
-    switch = "quit"
+    break
   else
     puts "Enter proper value."
     redo
