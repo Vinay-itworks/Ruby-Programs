@@ -12,7 +12,7 @@ class NumberProcessor
     for i in ary
       result[i] = i**0.5
     end
-    return result
+    result
   end
 end
 
@@ -27,25 +27,25 @@ def get_array_data(n)
       ary << num
     end
   end
-  return ary
+  ary
 end
      
 
 
 # puts NumberProcessor.calculate_square_root([25, 49, 121, 144])
 
-switch = ""
-
-until switch == "quit" || switch == "q"
+loop do
+  30.times {print "-"}
+  puts
   print "SQUARE ROOTs\nHow many values to get or quit : "
-  input = gets.chomp
+  input = gets.chomp.downcase
   num = input.to_i
 
   if num > 0
     ary = get_array_data(num)
     puts NumberProcessor.calculate_square_root(ary)
   elsif input == "quit" || input == "q"
-    switch = "quit"
+    break
   else
     puts "Enter proper value."
     redo

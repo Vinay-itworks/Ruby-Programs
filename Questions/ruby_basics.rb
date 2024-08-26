@@ -836,7 +836,8 @@ puts check(num1, num2)
 
  
 
-# 46. Write a Ruby program to check a given non-negative number and return true if number is within 2 of a multiple of 10.
+# 46. Write a Ruby program to check a given non-negative number and return true 
+# if number is within 2 of a multiple of 10.
 # Sample Output:
 
 # true

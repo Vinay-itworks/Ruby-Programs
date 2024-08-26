@@ -1,3 +1,3 @@
 This is a simple text file for testing purpose.
 This is next line.
-This is next line to the next line.ABCDEF
+This is next line to the next line.

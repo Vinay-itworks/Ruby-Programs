@@ -28,7 +28,7 @@ require "date"
 # puts Date.parse("21-08-2024").mon
 
 class Shop
-  DB = "database.json"
+  DB = "/home/dell/Downloads/Codes/Ruby-Programs/Questions/practical_question/database.json"
   
   def get_db
     file = open(DB).read
@@ -70,7 +70,7 @@ class Shop
     end
     result = []
     data = get_db
-    data["record"].each_with_index { |value, i|
+    data["record"].each_with_index { |value, i| #.select
       if value[0] == date.to_s
         result << value[1]
       end
@@ -91,7 +91,7 @@ class Shop
     result = []
     data = get_db
     for i in 0..data["record"].length-1
-      if Date.parse(data["record"][i][0]).mon.to_i == date
+      if Date.parse(data["record"][i][0]).mon.to_i == date #strftime
         # puts "Matched"
         result << [data["record"][i][0], data["record"][i][1]]
         # puts result.inspect

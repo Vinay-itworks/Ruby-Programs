@@ -8,46 +8,62 @@
 class Calculator
 
   def addition(num1, num2)
-    return num1 + num2
+    num1 + num2
   end
 
   def substraction(num1, num2)
-    return num1 - num2
+    num1 - num2
   end
 
   def multiple(num1, num2)
-    return num1 * num2
+    num1 * num2
   end
 
   def division(num1, num2)
-    return num1 / num2
+    begin
+      num1 / num2
+    rescue ZeroDivisionError => exception
+      "Division with zero cannot produce any answer."
+    end
   end
 end
 
 
 
-switch = ""
-until switch == "quit"
+loop do
 
   obj = Calculator.new
-  print "Enter operation to perform\n1 for Addtion \n2 for Substraction\n3 for Multiplication\n4 for Division\nHow may I help you?(1, 2, 3, 4 or quit) : "
-  operation = gets.chomp
-  if operation == "quit" || operation == "q"
-    switch = "quit"
-    break
+  30.times {print "-"}
+  puts 
+  puts "Enter operation to perform"
+  25.times {print "-"}
+  puts
+  print "1 for Addtion \n2 for Substraction\n3 for Multiplication\n4 for Division\nHow may I help you?(1, 2, 3, 4 or quit) : "
+  operation = gets.chomp.downcase
+  
+  break if operation == "quit" || operation == "q"
+
+  unless Array(1..4).include? operation.to_i
+    puts "Enter valid operation."
+    redo
   end
 
   operation = operation.to_i
 
   print "Enter first value : "
-  num1 = gets.chomp.to_i
+  num1 = gets.chomp
   print "Enter second value : "
-  num2 = gets.chomp.to_i
+  num2 = gets.chomp
   # puts num1, num2
-  if num1 == 0 || num2 == 0
-    puts "Operations with string and zero not performed"
-    redo
+  if num1.to_i == 0 || num2.to_i == 0
+    unless num1 == "0" || num2 == "0"
+      puts "Operations with string and zero not performed"
+      redo
+    end
   end
+
+  num1 = num1.to_f
+  num2 = num2.to_f
 
   print "Answer : "
   if operation == 1
@@ -58,9 +74,6 @@ until switch == "quit"
     puts obj.multiple(num1, num2)
   elsif operation == 4
     puts obj.division(num1, num2)
-  else
-    puts "Enter proper value."
-    redo
   end
 end
 

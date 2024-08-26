@@ -49,29 +49,28 @@ class Dimension
       result << dimension
       n -= 1
     end
-    return result
+    result
   end
 
 end
 
-switch = ""
 
 obj = Dimension.new
 
-until switch == "quit" || switch == "q"
+loop do
   print "Enter Dimensional constraints L : "
-  L = gets.chomp.to_i
+  l = gets.chomp.to_i
 
   print "Enter No of images : "
-  N = gets.chomp.to_i
+  n = gets.chomp.to_i
 
-  dimensions = obj.get_dimensions(N)
+  dimensions = obj.get_dimensions(n)
 
-  obj.check_dimensions(L, dimensions)
+  obj.check_dimensions(l, dimensions)
 
   print "Do you want to continue Y/n : "
   input = gets.chomp.downcase
-  unless input == "yes" || input == "Y" || input == "y"
-    switch = "quit"
+  unless input == "yes" || input == "y"
+    break
   end
 end

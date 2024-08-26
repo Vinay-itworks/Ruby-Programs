@@ -1,1 +1,2 @@
-puts "Give proper file path."
+str = "+2"
+  puts str =~ /^[-+]?[1-9]([0-9]*)?$/
