@@ -846,7 +846,13 @@ puts check(num1, num2)
 # true
 # true
 
-
+print "Enter number : "
+num1 = gets.chomp.to_i
+if num1 % 10
+  puts true
+else
+  puts false
+end
  
 
 
